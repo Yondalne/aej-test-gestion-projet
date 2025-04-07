@@ -6,9 +6,9 @@
                 <h2 class="mt-6 text-3xl font-extrabold text-gray-900">Connexion à votre compte</h2>
                 <p class="mt-2 text-sm text-gray-600">
                     Ou
-                    <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
+                    <Link href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
                         créez un nouveau compte
-                    </a>
+                    </Link>
                 </p>
             </div>
 
@@ -105,6 +105,7 @@
 <script setup>
 import { reactive, ref, computed } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 
 const form = useForm({
     email: '',

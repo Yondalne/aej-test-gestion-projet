@@ -3,15 +3,15 @@
         <template #header>
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 py-2">
                 <h2 class="font-bold text-2xl text-gray-900 leading-tight">Gestion des projets</h2>
-                <a href="/projets/create"
+                <Link href="/projets/create"
                     class="w-full sm:w-auto px-5 py-2.5 bg-indigo-600 border border-transparent rounded-lg font-semibold text-sm text-white uppercase tracking-wider hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition duration-200 ease-in-out shadow-md flex items-center justify-center gap-2"
-                    @click.prevent="$inertia.visit('/projets/create')">
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
                     Nouveau projet
-                </a>
+                </Link>
             </div>
         </template>
 
@@ -298,8 +298,7 @@
 
                                         <td class="px-6 py-4 text-right">
                                             <div class="flex justify-end space-x-3">
-                                                <a :href="`/projets/${projet.id}`"
-                                                    @click.prevent="$inertia.visit(`/projets/${projet.id}`)"
+                                                <Link :href="`/projets/${projet.id}`"
                                                     class="text-indigo-600 hover:text-indigo-900 transition duration-150 flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -309,10 +308,9 @@
                                                             stroke-width="2"
                                                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
-                                                </a>
-                                                <a v-if="$page.props.auth.user.role === 'promoteur' && projet.statut !== 'Validé'"
+                                                </Link>
+                                                <Link v-if="$page.props.auth.user.role === 'promoteur' && projet.statut !== 'Validé'"
                                                     :href="`/projets/${projet.id}/edit`"
-                                                    @click.prevent="$inertia.visit(`/projets/${projet.id}/edit`)"
                                                     class="text-amber-600 hover:text-amber-900 transition duration-150 flex items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor">
@@ -320,17 +318,7 @@
                                                             stroke-width="2"
                                                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                     </svg>
-                                                </a>
-                                                <button v-if="$page.props.auth.user.role === 'promoteur'"
-                                                    @click="confirmDelete(projet)"
-                                                    class="text-red-600 hover:text-red-900 transition duration-150 flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                    </svg>
-                                                </button>
+                                                </Link>
                                             </div>
                                         </td>
                                     </tr>
@@ -402,43 +390,6 @@
             </div>
         </div>
 
-        <!-- Modal de confirmation de suppression -->
-        <div v-if="showDeleteModal" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50">
-            <div class="fixed inset-0 transform transition-all" @click="showDeleteModal = false">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-
-            <div
-                class="mb-6 bg-white rounded-xl overflow-hidden shadow-xl transform transition-all sm:w-full sm:max-w-lg sm:mx-auto">
-                <div class="bg-white p-6 sm:p-8">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0 bg-red-100 rounded-full p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                            </svg>
-                        </div>
-                        <div class="ml-4 mt-0 w-full">
-                            <h3 class="text-lg font-bold text-gray-900">Confirmation de suppression</h3>
-                            <p class="mt-2 text-sm text-gray-600">
-                                Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.
-                            </p>
-                            <div class="mt-6 flex justify-end space-x-3">
-                                <button @click="showDeleteModal = false"
-                                    class="px-4 py-2 bg-white border border-gray-300 rounded-lg font-semibold text-sm text-gray-700 tracking-wide shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150">
-                                    Annuler
-                                </button>
-                                <button @click="deleteProjet"
-                                    class="px-4 py-2 bg-red-600 border border-transparent rounded-lg font-semibold text-sm text-white tracking-wide shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150">
-                                    Supprimer
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </AuthenticatedLayout>
 </template>
 
@@ -499,6 +450,7 @@ import * as XLSX from 'xlsx';
 import { ref, computed, onMounted } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import debounce from 'lodash/debounce';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     projets: {
@@ -530,9 +482,6 @@ const sortDirection = ref('desc');
 const itemsPerPage = 5;
 const currentPage = ref(1);
 
-// État pour la modal de suppression
-const showDeleteModal = ref(false);
-const projetToDelete = ref(null);
 
 // Debouncage de la recherche
 const debouncedSearch = debounce(() => {
@@ -651,24 +600,6 @@ function sortBy(column) {
 function applyFilters() {
     // Reset page to 1 when filters change
     currentPage.value = 1;
-}
-
-// Méthodes pour la suppression
-function confirmDelete(projet) {
-    projetToDelete.value = projet;
-    showDeleteModal.value = true;
-}
-
-function deleteProjet() {
-    if (projetToDelete.value) {
-        // Utiliser Inertia pour la suppression
-        window.Inertia.delete(`/projets/${projetToDelete.value.id}`, {
-            onSuccess: () => {
-                showDeleteModal.value = false;
-                projetToDelete.value = null;
-            },
-        });
-    }
 }
 
 // Utilitaires

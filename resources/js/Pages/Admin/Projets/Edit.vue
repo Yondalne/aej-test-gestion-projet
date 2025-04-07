@@ -34,16 +34,16 @@
                     </div>
 
                     <div class="mb-6">
-                        <a href="/projets"
+                        <Link href="/projets"
                             class="text-indigo-600 hover:text-indigo-900 flex items-center transition duration-200"
-                            @click.prevent="$inertia.visit('/projets')">
+                            >
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                             </svg>
                             <span class="border-b border-indigo-600 border-dashed pb-0.5">Retour à la liste</span>
-                        </a>
+                        </Link>
                     </div>
 
                     <form @submit.prevent="submitForm" class="space-y-8">
@@ -398,6 +398,7 @@
 import { ref, reactive, computed, watch } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import { Link } from '@inertiajs/vue3';
 
 // Référence pour l'input de fichier
 const fileInput = ref(null);

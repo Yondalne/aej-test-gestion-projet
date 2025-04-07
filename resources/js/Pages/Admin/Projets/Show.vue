@@ -37,16 +37,15 @@
                 <!-- Barre d'actions flottante -->
                 <div
                     class="sticky top-16 z-10 py-3 bg-white shadow-md rounded-lg mb-6 px-4 flex items-center justify-between transition-all duration-200 ease-in-out">
-                    <a href="/projets"
-                        class="text-indigo-600 hover:text-indigo-900 flex items-center transition-all duration-200 font-medium"
-                        @click.prevent="$inertia.visit('/projets')">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        <span class="border-b border-dashed border-indigo-300 pb-0.5">Retour à la liste</span>
-                    </a>
+                    <Link href="/projets"
+                        class="text-indigo-600 hover:text-indigo-900 flex items-center transition-all duration-200 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="border-b border-dashed border-indigo-300 pb-0.5">Retour à la liste</span>
+                    </Link>
 
                     <div class="flex flex-wrap gap-2 justify-end">
                         <!-- Menu dropdown pour les actions (visible sur mobile) -->
@@ -74,18 +73,18 @@
                                         </svg>
                                         Exporter PDF
                                     </a>
-                                    <a v-if="$page.props.auth.user.id === projet.user_id && projet.statut !== 'Validé'"
+                                    <Link
+                                        v-if="$page.props.auth.user.id === projet.user_id && projet.statut !== 'Validé'"
                                         :href="`/projets/${projet.id}/edit`"
-                                        @click.prevent="$inertia.visit(`/projets/${projet.id}/edit`)"
                                         class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                         role="menuitem">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3 text-yellow-500"
-                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                        Modifier
-                                    </a>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3 text-yellow-500"
+                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    Modifier
+                                    </Link>
                                     <button v-if="$page.props.auth.user.id === projet.user_id" @click="confirmDelete"
                                         class="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                         role="menuitem">
@@ -110,17 +109,16 @@
                             </svg>
                             <span>PDF</span>
                         </a>
-                        <a v-if="$page.props.auth.user.id === projet.user_id && projet.statut !== 'Validé'"
+                        <Link v-if="$page.props.auth.user.id === projet.user_id && projet.statut !== 'Validé'"
                             :href="`/projets/${projet.id}/edit`"
-                            class="hidden sm:inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-xs sm:text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
-                            @click.prevent="$inertia.visit(`/projets/${projet.id}/edit`)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-yellow-500" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                            </svg>
-                            <span>Modifier</span>
-                        </a>
+                            class="hidden sm:inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-xs sm:text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-yellow-500" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                        <span>Modifier</span>
+                        </Link>
                         <button v-if="$page.props.auth.user.id === projet.user_id" @click="confirmDelete"
                             class="hidden sm:inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-md font-medium text-xs sm:text-sm text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-red-500" fill="none"
@@ -469,6 +467,7 @@ import { ref } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Transition } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     projet: {
