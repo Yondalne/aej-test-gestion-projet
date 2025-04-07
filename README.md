@@ -83,7 +83,7 @@ J'ai choisi d'utiliser Inertia.js plutôt qu'une architecture séparée frontend
 
 1. **Cloner le dépôt**
    ```bash
-   git clone https://github.com/votre-username/aej-test-recrutement.git
+   git clone https://github.com/Yondalne/aej-test-recrutement.git
    cd aej-test-recrutement
    ```
 
