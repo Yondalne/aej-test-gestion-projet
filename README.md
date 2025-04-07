@@ -2,7 +2,7 @@
 
 Cette plateforme permet la gestion complète des projets de développement, offrant une interface pour les promoteurs de projets et un back-office administratif. Elle a été développée dans le cadre du test de recrutement AEJ.
 
-![Capture d'écran de la plateforme](screenshot.png)
+![Capture d'écran de la plateforme](public/images/app.png)
 
 ## Table des matières
 
