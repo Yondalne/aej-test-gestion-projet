@@ -226,7 +226,28 @@ npm run build
 
 ## Docker (Bonus implémenté)
 
-L'application est conteneurisée pour faciliter le déploiement:
+L'application est conteneurisée pour faciliter le déploiement.
+
+### Configuration Docker spécifique
+
+Pour utiliser correctement Docker avec cette application, vous devez modifier le fichier `.env` avec les paramètres suivants pour correspondre à la configuration Docker:
+
+```
+# Configuration de la base de données pour Docker
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=aej_projets
+DB_USERNAME=laravel
+DB_PASSWORD=password
+```
+
+Ces valeurs doivent correspondre aux informations configurées dans le `docker-compose.yml`. En particulier, notez que:
+- `DB_HOST=db` fait référence au nom du service de base de données dans docker-compose
+- `DB_USERNAME` et `DB_PASSWORD` doivent correspondre aux variables d'environnement définies pour le conteneur MySQL/MariaDB
+- Les autres variables d'environnement (APP_URL, Redis, etc.) doivent également être ajustées si nécessaire
+
+### Démarrage avec Docker
 
 ```bash
 # Construire et démarrer les conteneurs
@@ -244,6 +265,11 @@ docker-compose exec app php artisan migrate --seed
 ```
 
 L'application sera accessible à l'adresse: `http://localhost:8080`
+
+### Résolution des problèmes courants avec Docker
+
+- Si vous rencontrez des problèmes de permissions: `docker-compose exec app chmod -R 777 storage bootstrap/cache`
+- Si la base de données ne se connecte pas, vérifiez que le service `db` a eu le temps de démarrer complètement avant de lancer les migrations
 
 ---
 
