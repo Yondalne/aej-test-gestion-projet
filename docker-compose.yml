@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+    # Service PHP-FPM
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                user: appuser
+                uid: 1000
+        container_name: aej-app
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - aej-network
+        depends_on:
+            - db
+
+    # Service Nginx
+    webserver:
+        image: nginx:alpine
+        container_name: aej-webserver
+        restart: unless-stopped
+        ports:
+            - "8080:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        networks:
+            - aej-network
+        depends_on:
+            - app
+
+    # Service MySQL
+    db:
+        image: mysql:8.0
+        container_name: aej-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: aej_projets
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_PASSWORD: password
+            MYSQL_USER: laravel
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - aej-network
+        command: --default-authentication-plugin=mysql_native_password
+
+# Volumes
+volumes:
+    dbdata:
+        driver: local
+
+# Networks
+networks:
+    aej-network:
+        driver: bridge
